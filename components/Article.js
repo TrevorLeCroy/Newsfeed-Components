@@ -86,6 +86,13 @@ const data = [
     thirdParagraph: `Hodor hodor - hodor... Hodor hodor hodor hodor. Hodor. Hodor! Hodor hodor, hodor hodor hodor hodor hodor; hodor hodor? Hodor!
           Hodor hodor, HODOR hodor, hodor hodor?! Hodor! Hodor hodor, HODOR hodor, hodor hodor, hodor, hodor hodor. Hodor, hodor.
           Hodor. Hodor, hodor, hodor. Hodor hodor... Hodor hodor hodor?! Hodor, hodor... Hodor hodor HODOR hodor, hodor hodor. Hodor.`
+  },
+  {
+    title: 'The Quick Brown Fox',
+    date: 'June 8th',
+    firstParagraph: 'The quick, brown fox jumps over a lazy dog. DJs flock by when MTV ax quiz prog. Junk MTV quiz graced by fox whelps. Bawds jog, flick quartz, vex nymphs. Waltz, bad nymph, for quick jigs vex! Fox nymphs grab quick-jived waltz. Brick quiz whangs jumpy veldt fox. Bright vixens jump; dozy fowl quack. Quick wafting zephyrs vex bold Jim. Quick zephyrs blow, vexing daft Jim. Sex-charged fop blew my junk TV quiz. How quickly daft jumping zebras vex. Two driven jocks help fax my big quiz. Quick, Baz, get my woven flax jodhpurs! "Now fax quiz Jack!" my brave ',
+    secondParagraph: 'The quick, brown fox jumps over a lazy dog. DJs flock by when MTV ax quiz prog. Junk MTV quiz graced by fox whelps. Bawds jog, flick quartz, vex nymphs. Waltz, bad nymph, for quick jigs vex! Fox nymphs grab quick-jived waltz. Brick quiz whangs jumpy veldt fox. Bright vixens jump; dozy fowl quack. Quick wafting zephyrs vex bold Jim. Quick zephyrs blow, vexing daft Jim. Sex-charged fop blew my junk TV quiz. How quickly daft jumping zebras vex. Two driven jocks help fax my big quiz. Quick, Baz, get my woven flax jodhpurs! "Now fax quiz Jack!" my brave',
+    thirdParagraph: 'The quick, brown fox jumps over a lazy dog. DJs flock by when MTV ax quiz prog. Junk MTV quiz graced by fox whelps. Bawds jog, flick quartz, vex nymphs. Waltz, bad nymph, for quick jigs vex! Fox nymphs grab quick-jived waltz. Brick quiz whangs jumpy veldt fox. Bright vixens jump; dozy fowl quack. Quick wafting zephyrs vex bold Jim. Quick zephyrs blow, vexing daft Jim. Sex-charged fop blew my junk TV quiz. How quickly daft jumping zebras vex. Two driven jocks help fax my big quiz. Quick, Baz, get my woven flax jodhpurs! "Now fax quiz Jack!" my brave '
   }
 ];
 
@@ -114,3 +121,47 @@ const data = [
   Step 5: Try adding new article object to the data array. Make sure it is in the same format as the others.
   Refresh the page to see the new article.
 */
+
+const articles = document.querySelector('.articles');
+
+function articleMaker(articleData) {
+  const articleDiv       = document.createElement('div');
+  articleDiv.className   = 'article';
+  
+  const articleH2       = document.createElement('h2');
+  articleH2.textContent = articleData.title;
+  articleDiv.appendChild(articleH2);
+
+  const articleDate       = document.createElement('p');
+  articleDate.className   = 'date';
+  articleDate.textContent = articleData.date;
+  articleDiv.appendChild(articleDate);
+
+  const paragraphs = [
+   document.createElement('p'),
+   document.createElement('p'),
+   document.createElement('p')
+  ];
+
+  let [pOne, pTwo, pThree] = paragraphs;
+  pOne.textContent   = articleData.firstParagraph;
+  pTwo.textContent   = articleData.secondParagraph;
+  pThree.textContent = articleData.thirdParagraph;
+  paragraphs.forEach(p => {
+    articleDiv.appendChild(p);
+  });
+
+  const articleSpan       = document.createElement('span');
+  articleSpan.className   = 'expandButton';
+  articleSpan.textContent = '+';
+  articleSpan.addEventListener('click', e => {
+    articleDiv.classList.toggle('article-open');
+  })
+  articleDiv.appendChild(articleSpan);
+  
+  return articleDiv;
+}
+
+data.forEach(article => {
+  articles.appendChild(articleMaker(article));
+});
